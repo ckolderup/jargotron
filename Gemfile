@@ -6,7 +6,7 @@ gem 'rake'
 gem 'sinatra'
 gem 'thin'
 gem 'data_mapper'
-gem 'dm-postgres-adapter', group: :development
+gem 'dm-postgres-adapter', group: :production
 gem 'twitter', '~> 4.0'
 
 group :development do
