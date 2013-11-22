@@ -88,6 +88,6 @@ class Jargotron
     end
 
     puts "asked: #{attempt.question_string(attempt.topic)}"
-    yeses.size >= nos.size
+    yeses.size >= nos.size && yeses.size > 0
   end
 end
