@@ -1,8 +1,3 @@
-desc "Print a random example question"
-task :print_question => :environment do
-  puts Jargotron.make_proposal
-end
-
 desc "Tweets a random question"
 task :tweet_question => :environment do
   Jargotron.tweet_question
