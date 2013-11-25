@@ -74,7 +74,7 @@ class Jargotron
   end
 
   def self.reply_helper(attempt)
-    replies = Twitter.mentions_timeline
+    replies = Twitter.mentions_timeline(count: 200)
     relevant = replies.select do |tweet|
       tweet.in_reply_to_status_id == attempt.id
     end
