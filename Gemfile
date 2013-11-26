@@ -8,6 +8,7 @@ gem 'thin'
 gem 'data_mapper'
 gem 'dm-postgres-adapter', group: :production
 gem 'twitter', '~> 4.0'
+gem 'sentimental'
 
 group :development do
   gem 'dm-sqlite-adapter'
