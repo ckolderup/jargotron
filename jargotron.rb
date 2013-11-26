@@ -80,11 +80,11 @@ class Jargotron
     end
 
     yeses = relevant.select do |t|
-      t.text.match(/^@#{Twitter.user.screen_name} y(.*?)$/)
+      t.text.match(/^@#{Twitter.user.screen_name} y(.*?)$/i)
     end
 
     nos = relevant.select do |t|
-      t.text.match(/^@#{Twitter.user.screen_name} n(.*?)/)
+      t.text.match(/^@#{Twitter.user.screen_name} n(.*?)/i)
     end
 
     puts "asked: #{attempt.question_string(attempt.topic)}"
