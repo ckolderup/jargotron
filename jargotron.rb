@@ -82,12 +82,16 @@ class Jargotron
       tweet.in_reply_to_status_id == attempt.id
     end
 
+    Sentimental.load_defaults
+    Sentimental.threshold = 0.1
+    analyzer = Sentimental.new
+
     yeses = relevant.select do |t|
-      t.text.match(/^@#{Twitter.user.screen_name} y(.*?)$/i)
+      analyzer.get_sentiment(t.text) == :positive
     end
 
     nos = relevant.select do |t|
-      t.text.match(/^@#{Twitter.user.screen_name} n(.*?)/i)
+      analyzer.get_sentiment(t.text) == :negative
     end
 
     puts "asked: #{attempt.question_string(attempt.topic)}"
