@@ -1,8 +1,6 @@
-require 'sinatra'
 require_relative 'jargotron'
 
 task :environment do
-      Sinatra::Application.environment = ENV['RACK_ENV']
 end
 
 desc "Creates a new topic"
