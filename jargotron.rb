@@ -9,7 +9,7 @@ class Jargotron
     joke = Joke.all.select { |j| j.property == topic.property}.sample
     puts "chose #{joke.joke_fmt}"
 
-    joke.finish unless joke.nil?
+    joke.finish(topic) unless joke.nil?
   end
 
   def self.tweet_question
