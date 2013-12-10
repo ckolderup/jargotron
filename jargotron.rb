@@ -13,27 +13,29 @@ class Jargotron
   end
 
   def self.tweet_question
-    if (Random.new.rand(1..10) < 3) then
+    uncategorized_left = Topic.all.select { |t| t.category.nil? }.size
+    unfinished_left = Topic.all.select { |t| t.property.nil? }.size
+
+    if (Random.new.rand(1..10) < 3 || uncategorized_left == 0) then
       tweet_property_q
     else
       tweet_category_q
     end
+
+    Twitter.update("@ckolderup I need more topics!") if unfinished_left < 5
   end
 
   def self.tweet_property_q
     topic = Topic.all.select { |t| !t.category.nil? && t.property.nil? }.sample
     puts "chose #{topic.name}"
     property = Property.all.select { |p| p.category == topic.category }.sample
-    if property.nil? then
-      tweet_category_q
-    else
-      puts "chose #{property.name}"
-      question = property.property_query_fmt.gsub("%%topic%%", topic.name)
 
-      tweet = Twitter.update(question)
-      attempt = PropertyAttempt.new(id: tweet.id, topic: topic, property: property)
-      attempt.save!
-    end
+    puts "chose #{property.name}"
+    question = property.property_query_fmt.gsub("%%topic%%", topic.name)
+
+    tweet = Twitter.update(question)
+    attempt = PropertyAttempt.new(id: tweet.id, topic: topic, property: property)
+    attempt.save!
   end
 
   def self.tweet_category_q
@@ -70,6 +72,7 @@ class Jargotron
       else
         Twitter.update("hmm, maybe #{property_attempt.topic.name} isn't #{property_attempt.property.name}...")
       end
+      property_attempt.destroy!
     end
   end
 
@@ -80,11 +83,11 @@ class Jargotron
     end
 
     yeses = relevant.select do |t|
-      t.text.match(/^@#{Twitter.user.screen_name} y(.*?)$/)
+      t.text.match(/^@#{Twitter.user.screen_name} y(.*?)$/i)
     end
 
     nos = relevant.select do |t|
-      t.text.match(/^@#{Twitter.user.screen_name} n(.*?)/)
+      t.text.match(/^@#{Twitter.user.screen_name} n(.*?)/i)
     end
 
     puts "asked: #{attempt.question_string(attempt.topic)}"

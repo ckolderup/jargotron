@@ -80,7 +80,12 @@ end
 
 desc "Finds topics that have properties"
 task :finished_topics => :environment do
-  Topic.all.reject { |t| t.property.nil? }.map {|x| puts x}
+  Topic.all.reject { |t| t.property.nil? }.map {|x| puts "#{x.name} => #{x.property.name}"}
+end
+
+desc "Finds topics that aren't finished yet"
+task :unfinished_topics => :environment do
+  Topic.all.select { |t| t.property.nil? || t.category.nil? }.map {|x| puts "#{x.name}" + (x.category.nil? ? "" : "(is #{x.category.name})")}
 end
 
 Dir.glob('lib/tasks/*.rake').each { |r| import r }
