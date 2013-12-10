@@ -55,22 +55,26 @@ class Jargotron
     category_attempt = CategoryAttempt.last(order: [:id.asc])
     property_attempt = PropertyAttempt.last(order: [:id.asc])
 
+
+    confirmation_prefixes = [ "wow, okay! Sounds like", "Thanks, everyone!", "Cool! I guess"]
+    unsure_prefixes = ["hmm, maybe", "alright, so apparently", "ugh, looks like"]
+
     if ( property_attempt.nil? || category_attempt.created_at > property_attempt.created_at) then
       if reply_helper(category_attempt) then
         category_attempt.topic.category = category_attempt.category
         category_attempt.topic.save!
-        Twitter.update("wow, okay! Sounds like #{category_attempt.topic.name} is #{category_attempt.category.name}!")
+        Twitter.update("#{confirmation_prefixes.sample} #{category_attempt.topic.name} is #{category_attempt.category.name}!")
       else
-        Twitter.update("hmm, maybe #{category_attempt.topic.name} isn't #{category_attempt.category.name}...")
+        Twitter.update("#{unsure_prefixes.sample} #{category_attempt.topic.name} isn't #{category_attempt.category.name}...")
       end
       category_attempt.destroy!
     else
       if reply_helper(property_attempt) then
         property_attempt.topic.property = property_attempt.property
         property_attempt.topic.save!
-        Twitter.update("wow, okay! Sounds like #{property_attempt.topic.name} is #{property_attempt.property.name}!")
+        Twitter.update("#{confirmation_prefixes.sample} #{property_attempt.topic.name} is #{property_attempt.property.name}!")
       else
-        Twitter.update("hmm, maybe #{property_attempt.topic.name} isn't #{property_attempt.property.name}...")
+        Twitter.update("#{unsure_prefixes.sample} #{property_attempt.topic.name} isn't #{property_attempt.property.name}...")
       end
       property_attempt.destroy!
     end
