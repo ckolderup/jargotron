@@ -80,7 +80,7 @@ end
 
 desc "Finds topics that have properties"
 task :finished_topics => :environment do
-  Topic.all.reject { |t| t.property.nil? }.map {|x| puts x}
+  Topic.all.reject { |t| t.property.nil? }.map {|x| puts x.name}
 end
 
 Dir.glob('lib/tasks/*.rake').each { |r| import r }
