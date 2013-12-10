@@ -18,6 +18,9 @@ class Jargotron
     else
       tweet_category_q
     end
+
+    topics_left = Topic.all.select { |t| t.property.nil? }.size
+    Twitter.update("@ckolderup I need more topics!") if topics_left < 5
   end
 
   def self.tweet_property_q
