@@ -73,6 +73,7 @@ class Jargotron
       else
         Twitter.update("hmm, maybe #{property_attempt.topic.name} isn't #{property_attempt.property.name}...")
       end
+      property_attempt.destroy!
     end
   end
 
