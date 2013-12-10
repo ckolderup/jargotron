@@ -1,4 +1,3 @@
-require 'sinatra'
 require_relative 'twitter_setup'
 require_relative 'models/init'
 
