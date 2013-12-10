@@ -1,6 +1,5 @@
-require_relative 'jargotron'
-
 task :environment do
+  require_relative 'jargotron'
 end
 
 desc "Creates a new topic"
