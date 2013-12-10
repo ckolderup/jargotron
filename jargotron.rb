@@ -22,7 +22,10 @@ class Jargotron
       tweet_category_q
     end
 
-    Twitter.update("@ckolderup I need more topics!") if unfinished_left < 5
+    on_empty = ["I need more topics!", "Help me find more to learn about?", "What should I study next?",
+                "Where do we go from here?", "Feels like I know everything about everything..."]
+
+    Twitter.update("@ckolderup #{on_empty.sample}") if unfinished_left < 5
   end
 
   def self.tweet_property_q
