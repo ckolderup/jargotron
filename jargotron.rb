@@ -11,6 +11,12 @@ class Jargotron
     joke.finish(topic) unless joke.nil?
   end
 
+  def self.tweet_joke
+    joke = write_joke
+
+    Twitter.update(joke) unless joke.nil?
+  end
+
   def self.tweet_question
     uncategorized_left = Topic.all.select { |t| t.category.nil? }.size
     unfinished_left = Topic.all.select { |t| t.property.nil? }.size
