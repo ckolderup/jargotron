@@ -95,6 +95,7 @@ class Jargotron
     end
 
     Sentimental.load_defaults
+    Sentimental.load_senti_file('./answers.txt')
     Sentimental.threshold = 0.1
     analyzer = Sentimental.new
 

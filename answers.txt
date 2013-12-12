@@ -1,0 +1,10 @@
+1.0 yes
+1.0 yep
+1.0 yeah
+1.0 uh-huh
+1.0 definitely
+0.5 sure
+-1.0 no
+-1.0 nope
+-1.0 nah
+-1.0 no way
