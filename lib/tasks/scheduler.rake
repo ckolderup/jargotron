@@ -10,5 +10,5 @@ end
 
 desc "Tweets a random joke"
 task :tweet_joke => :environment do
-  Jargotron.tweet_joke
+  Jargotron.tweet_joke if Time.new.hour % 4 == 0
 end
