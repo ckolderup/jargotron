@@ -1,3 +1,4 @@
+require 'andand'
 require 'sentimental'
 require_relative 'twitter_setup'
 require_relative 'models/init'
@@ -64,11 +65,13 @@ class Jargotron
     category_attempt = CategoryAttempt.last(order: [:id.asc])
     property_attempt = PropertyAttempt.last(order: [:id.asc])
 
+    last_category_attempt_stamp = category_attempt.andand.created_at.to_i
+    last_property_attempt_stamp = property_attempt.andand.created_at.to_i
 
     confirmation_prefixes = [ "wow, okay! Sounds like", "Thanks, everyone!", "Cool! I guess"]
     unsure_prefixes = ["hmm, maybe", "alright, so apparently", "ugh, looks like"]
 
-    if ( property_attempt.nil? || category_attempt.created_at > property_attempt.created_at) then
+    if ( last_category_attempt_stamp > last_property_attempt_stamp) then
       if reply_helper(category_attempt) then
         category_attempt.topic.category = category_attempt.category
         category_attempt.topic.save!
