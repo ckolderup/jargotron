@@ -65,8 +65,8 @@ class Jargotron
     category_attempt = CategoryAttempt.last(order: [:id.asc])
     property_attempt = PropertyAttempt.last(order: [:id.asc])
 
-    last_category_attempt_stamp = category_attempt.andand.created_at.to_i
-    last_property_attempt_stamp = property_attempt.andand.created_at.to_i
+    last_category_attempt_stamp = category_attempt.andand.created_at.to_time.to_i
+    last_property_attempt_stamp = property_attempt.andand.created_at.to_time.to_i
 
     confirmation_prefixes = [ "wow, okay! Sounds like", "Thanks, everyone!", "Cool! I guess"]
     unsure_prefixes = ["hmm, maybe", "alright, so apparently", "ugh, looks like"]
